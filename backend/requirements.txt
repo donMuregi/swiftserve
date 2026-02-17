@@ -1,0 +1,7 @@
+django==4.2.27
+djangorestframework==3.16.1
+django-cors-headers==4.9.0
+python-decouple==3.8
+Pillow==11.0.0
+mysqlclient==2.2.6
+gunicorn==23.0.0
