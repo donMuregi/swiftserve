@@ -1,0 +1,21 @@
+---
+deployment:
+  tasks:
+    # Deploy backend
+    - /bin/cp -R backend/* /home/jaicomen/app.swiftcarservice.co.ke/
+    - /bin/cp backend/.env.production /home/jaicomen/app.swiftcarservice.co.ke/.env
+
+    # Deploy frontend
+    - /bin/cp -R frontend/* /home/jaicomen/swiftcarservice.co.ke/
+    - /bin/cp frontend/.env.production /home/jaicomen/swiftcarservice.co.ke/.env
+
+    # Install backend dependencies
+    - cd /home/jaicomen/app.swiftcarservice.co.ke && source /home/jaicomen/virtualenv/app.swiftcarservice.co.ke/3.9/bin/activate && pip install -r requirements.txt
+
+    # Run migrations and collect static
+    - cd /home/jaicomen/app.swiftcarservice.co.ke && source /home/jaicomen/virtualenv/app.swiftcarservice.co.ke/3.9/bin/activate && python manage.py migrate --noinput
+    - cd /home/jaicomen/app.swiftcarservice.co.ke && source /home/jaicomen/virtualenv/app.swiftcarservice.co.ke/3.9/bin/activate && python manage.py collectstatic --noinput
+
+    # Install frontend dependencies and build
+    - cd /home/jaicomen/swiftcarservice.co.ke && npm install
+    - cd /home/jaicomen/swiftcarservice.co.ke && npm run build
